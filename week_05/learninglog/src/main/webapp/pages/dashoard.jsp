@@ -1,4 +1,4 @@
-<%@ page import="com.learninglog.learninglogproject.user.model.User" %><%--
+<%@ page import="com.learninglog.learninglogproject.topic.model.User" %><%--
   Created by IntelliJ IDEA.
   User: Dell
   Date: 3/29/2026
@@ -14,11 +14,16 @@
     <%
         User user =(User) session.getAttribute("user");
     %>
+    <% if (user == null) { %>
+    <p>Please login first.</p>
+    <% } else { %>
     <h1>
-        <%= user.getName()  %>
+        Name: <%= user.getName()  %>
         <br>
-        <%= user.getId() %>
+        Id: <%= user.getId() %>
     </h1>
+    <a href="topic">Add Topic</a>
+    <% } %>
 </body>
 
 </html>

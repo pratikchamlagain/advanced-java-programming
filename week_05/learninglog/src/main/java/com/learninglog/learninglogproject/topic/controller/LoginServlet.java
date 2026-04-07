@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
             UserDao dao = new UserDao();
             User UserObj = dao.LoginUser(email, password);
             if (UserObj == null) {
-                req.setAttribute("error", "Invalid username or password");
+                req.setAttribute("errors", "Invalid username or password");
                 req.getRequestDispatcher("pages/login.jsp").forward(req, resp);
             }
             else{
@@ -36,6 +36,8 @@ public class LoginServlet extends HttpServlet {
 
             }
         } catch (Exception e) {
+            req.setAttribute("errors", "Unable to login");
+            req.getRequestDispatcher("pages/login.jsp").forward(req, resp);
         }
     }
 }
