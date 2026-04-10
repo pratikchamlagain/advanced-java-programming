@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class UserDao {
 
     public boolean insertUser(User user) throws SQLException {
-        String query = "INSERT INTO user(name, email, password)"+
+        String query = "INSERT INTO users(username, email, password)"+
                 "VALUES(?,?,?)";
         try(Connection conn = DbConnection.getConnection();
             PreparedStatement st = conn.prepareStatement(query)
@@ -33,7 +33,7 @@ public class UserDao {
 
     public User loginUser(String email, String password)
     throws  SQLException{
-        String sqlQuery="SELECT * FROM user WHERE email=?";
+        String sqlQuery="SELECT * FROM users WHERE email=?";
         try(Connection conn = DbConnection.getConnection();
         PreparedStatement st = conn.prepareStatement(sqlQuery)){
             st.setString(1, email);
@@ -44,8 +44,8 @@ public class UserDao {
                 boolean isValidPw= BCrypt.checkpw(password, hashedPwDb);
                 if(isValidPw){
                     int id = rs.getInt("id");
-                    String name= rs.getString("name");
-                    User obj = new User(id, name, email, password);
+                    String username= rs.getString("username");
+                    User obj = new User(id, username, email, password);
                     return  obj;
                 }
                 else{

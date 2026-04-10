@@ -1,52 +1,55 @@
-<%--
-  Register Page JSP
-  This form sends user data to RegisterServlet
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | LearningLog</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
 </head>
 <body>
-
 <%
     String errorMsg = (String) request.getAttribute("error");
+    if (errorMsg == null) {
+        errorMsg = "";
+    }
 %>
-<%=
-    errorMsg
-%>
-<!-- Form starts here -->
-<!-- action="/register" → matches your servlet URL -->
-<!-- method="post" → used to send data securely -->
-<form action="register" method="post">
+<main class="form-shell">
+    <section class="panel auth-card">
+        <div class="stack">
+            <div>
+                <span class="eyebrow-pill">Create your account</span>
+                <h2 style="margin-top: 14px;">Start your clean learning workspace.</h2>
+                <p class="lead" style="margin-top: 12px;">Set up your profile and begin organizing study topics in one consistent dashboard.</p>
+            </div>
 
-    <!-- Full Name Field -->
-    <div class="input-fields">
-        <label>Full Name</label>
-        <!-- name attribute is REQUIRED to get value in servlet -->
-        <input type="text" name="name" placeholder="Enter your name" >
-    </div>
+            <% if (!errorMsg.isEmpty()) { %>
+                <div class="alert"><%= errorMsg %></div>
+            <% } %>
 
-    <!-- Email Field -->
-    <div class="input-fields">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="Enter your email" >
-    </div>
+            <form class="form-grid" action="${pageContext.request.contextPath}/register" method="post">
+                <div class="field">
+                    <label for="name">Full name</label>
+                    <input id="name" type="text" name="name" placeholder="Enter your full name" required>
+                </div>
 
-    <!-- Password Field -->
-    <div class="input-fields">
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Enter password" >
-    </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" placeholder="Enter your email" required>
+                </div>
 
-    <!-- Submit Button -->
-    <div class="input-fields">
-        <button type="submit">Register</button>
-    </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" placeholder="Create a password" required>
+                </div>
 
-</form>
-
+                <div class="actions-row">
+                    <button class="button" type="submit">Register</button>
+                    <a class="button-ghost" href="${pageContext.request.contextPath}/login">Already have an account</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
 </body>
 </html>

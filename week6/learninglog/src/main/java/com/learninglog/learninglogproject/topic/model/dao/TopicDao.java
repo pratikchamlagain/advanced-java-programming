@@ -8,22 +8,23 @@ import java.sql.*;
 
 public class TopicDao {
     public boolean insertTopic(
-            String name, int userId, Timestamp createdDate
+            String title, int userId, Timestamp createdDate
     )throws SQLException {
-        String query="INSERT INTO topic(name, user_id, createdat)"+
+        String query="INSERT INTO topics(title, user_id, createdat)"+
                 "VALUES (?,?,?)";
         try(Connection conn = DbConnection.getConnection();
             PreparedStatement st = conn.prepareStatement(query)){
-            st.setString(1, name);
+            st.setString(1, title);
             st.setInt(2, userId);
             st.setTimestamp(3, createdDate);
             int insertedRows = st.executeUpdate();
+
             if(insertedRows > 0){return  true;}
             else {return  false;}
         }
     }
     public static List<Topic> fetchTopics()throws SQLException {
-        String query="SELECT * FROM topic";
+        String query="SELECT * FROM topics";
         try(Connection conn = DbConnection.getConnection();
             PreparedStatement st = conn.prepareStatement(query)
         ){
