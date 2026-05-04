@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Dell
+  Date: 4/6/2026
+  Time: 2:52 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -6,6 +13,7 @@
     <title>Title</title>
 </head>
 <body>
+
 Topic List
 <table border="1">
     <tr>
@@ -16,16 +24,16 @@ Topic List
         <th>Action</th>
     </tr>
     <tbody>
-    <c:forEach var="t" items="${topics}">
+    <c:forEach var="obj" items="${topics}">
         <tr>
 
-            <td>${t.getId()}</td>
-            <td>${t.getName()}</td>
-            <td>${t.getUserId()}</td>
-            <td>${t.getCreatedAt()}</td>
+            <td>${obj.getId()}</td>
+            <td>${obj.getName()}</td>
+            <td>${obj.getUserId()}</td>
+            <td>${obj.getCreatedAt()}</td>
             <td>
-                <a href="topic?action=edit&id=${t.getId()}">Edit</a> |
-                <a href="topic?action=delete&id=${t.getId()}">Delete</a>
+                <a href="topic?page=edit&id=${obj.getId()}">Edit</a> |
+                <a href="topic?page=delete&id=${obj.getId()}">Delete</a>
             </td>
         </tr>
     </c:forEach>
